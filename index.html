@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakshi Wrapped 2025</title>
+    <style>
+        :root { --purp: #0f051d; --lav: #d1b3ff; --glass: rgba(255,255,255,0.1); }
+        body, html { margin:0; padding:0; width:100%; height:100%; background: var(--purp); color:white; font-family: 'Segoe UI', sans-serif; overflow:hidden; }
+        
+        .bg { position:fixed; inset:0; background: linear-gradient(45deg, #0f051d, #2e004f, #1a0b2e); background-size: 400% 400%; animation: gradientBG 15s ease infinite; z-index:-2; }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+        
+        #warp-layer { position: fixed; inset: 0; background: white; opacity: 0; z-index: 500; pointer-events: none; }
+        .warp-active { animation: warpFlash 0.5s ease-out forwards; }
+        @keyframes warpFlash { 0% { opacity: 0; transform: scale(1); } 30% { opacity: 1; background: var(--lav); } 100% { opacity: 0; transform: scale(1.5); } }
+
+        .bars { position:absolute; top:15px; left:10px; right:10px; display:flex; gap:5px; z-index:100; }
+        .bar { height:3px; flex:1; background: rgba(255,255,255,0.2); border-radius:2px; overflow:hidden; }
+        .fill { height:100%; width:0%; background: var(--lav); transition: width 0.3s linear; }
+
+        .slide { display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; z-index: 1; }
+        .slide.active { display:flex; }
+        .card { background: var(--glass); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; padding: 25px; width: 85%; max-width: 340px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
+        
+        .race-container { position: relative; height: 260px; margin-top: 20px; width: 100%; }
+        .race-bar { position: absolute; left: 0; height: 42px; background: rgba(209, 179, 255, 0.2); border-radius: 12px; width: 0%; transition: width 2s cubic-bezier(0.1, 0.5, 0.5, 1), top 1.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; padding: 0 15px; box-sizing: border-box; border: 1px solid rgba(255,255,255,0.1); }
+        .img-box { width:100%; height:180px; border-radius:20px; background:#222; margin:15px 0; overflow:hidden; border: 1px solid var(--lav); }
+        .img-box img { width:100%; height:100%; object-fit:cover; }
+        h1 { color:var(--lav); margin:10px 0; font-size:1.8rem; }
+        .nav-zone { position:absolute; top:0; bottom:0; width:50%; z-index:5; }
+        .btn { background: var(--lav); color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; cursor: pointer; z-index: 2000; position: relative; }
+        #overlay { position: fixed; inset: 0; background: var(--purp); z-index: 2000; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+
+        #sparkle-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+        .sparkle { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px white, 0 0 20px var(--lav); opacity: 0; animation: sparkleAnim 1.2s ease-out forwards; }
+        @keyframes sparkleAnim { 0% { transform: scale(0) translateY(0); opacity: 1; } 100% { transform: scale(1.5) translateY(-50px); opacity: 0; } }
+        .item { background:rgba(255,255,255,0.07); margin:5px; padding:10px; border-radius:10px; display:flex; justify-content:space-between; }
+    </style>
+</head>
+<body>
+
+    <div id="warp-layer"></div>
+    <div id="sparkle-container"></div>
+
+    <div id="overlay">
+        <h1>Sakshi Wrapped</h1>
+        <button class="btn" onclick="startExperience()">OPEN YOUR 2025 ✨</button>
+    </div>
+
+    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    <div class="bg"></div>
+    <div class="bars" id="bars"></div>
+    
+    <div class="nav-zone" style="left:0" onclick="changeSlide(-1)"></div>
+    <div class="nav-zone" style="right:0" onclick="changeSlide(1)"></div>
+
+    <div class="slide"><h1>Your Year<br>Wrapped</h1><p>2025 EDITION</p></div>
+
+    <div class="slide"><h1 style="font-size: 3.5rem;">WAIT FOR IT...</h1></div>
+
+    <div class="slide">
+        <div class="card">
+            <h2>The Icon</h2>
+            <h1>Seksy</h1>
+            <div class="img-box"><img src="sakshi.png"></div>
+            <p>Visited many places but your <b>top place was My dms.</b></p>
+        </div>
+    </div>
+    
+    <div class="slide" id="leaderboard-slide">
+        <div class="card">
+            <h2>Rankings</h2><h1>Leaderboard</h1>
+            <div class="race-container">
+                <div class="race-bar" id="bar1" style="top: 200px;" data-final-top="0"><span>1. Boards</span></div>
+                <div class="race-bar" id="bar2" style="top: 150px;" data-final-top="50"><span>2. Birthday</span></div>
+                <div class="race-bar" id="bar3" style="top: 100px;" data-final-top="100"><span>3. Turkey</span></div>
+                <div class="race-bar" id="bar4" style="top: 50px;" data-final-top="150"><span>4. Delhi</span></div>
+                <div class="race-bar" id="bar5" style="top: 0px;" data-final-top="200"><span>5. Mumbai</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide"><div class="card"><h2>Top Performer</h2><h1>Artist of the year: "Sakshi"</h1><div class="img-box"><img src="dance.jpg"></div><p>Dancing at bdays, etc.</p></div></div>
+
+    <div class="slide"><div class="card"><h2>Failure of the year</h2><div class="img-box"><img src="failure.jpg"></div><p>Few meetups this year. 😔</p></div></div>
+
+    <div class="slide"><div class="card"><h2>Top Misspelt Word</h2><h1>Hosie</h1></div></div>
+
+    <div class="slide"><div class="card"><h2>Vocabulary</h2><div class="item"><span>1. Nigga</span></div><div class="item"><span>2. Bro</span></div><div class="item"><span>3. No</span></div></div></div>
+    
+    <div class="slide"><div class="card"><h2>Favorite Pet</h2><h1>Scooby</h1><div class="img-box"><img src="scooby.jpg"></div><p>The real MVP of the year! 🐶</p></div></div>
+
+    <div class="slide"><div class="card"><h2>Major Highlight</h2><h1>Best Day</h1><div class="img-box"><img src="birthday.jpg"></div><p>Your Birthday! 🎂✨</p></div></div>
+
+    <div class="slide"><div class="card"><h2>Big Changes</h2><h1>No more Paris school 😔</h1><div class="img-box"><img src="paris.jpg"></div></div></div>
+    
+    <div class="slide" id="sparkle-slide">
+        <div class="card"><h1>HAPPY NEW YEAR!</h1><p>BESTESTEST FRIEND. ILYSMM.🫶</p></div>
+    </div>
+    
+    <div class="slide">
+        <div class="card" style="background: linear-gradient(180deg, #4b0082 0%, #0f051d 100%);">
+            <h2 style="color:white;">My 2025 Wrapped</h2>
+            <div class="img-box" style="height:110px;">
+                <img src="seksy.jpg"> </div>
+            <div class="item"><span>Top Place:</span><span>My dms</span></div>
+            <div class="item"><span>Best Day:</span><span>Birthday 🎂</span></div>
+            <div class="item"><span>Fav Pet:</span><span>Scooby 🐶</span></div>
+            <p style="margin-top:10px; font-weight:bold; color:var(--lav);">For: Seksy</p>
+        </div>
+    </div>
+
+    <script>
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        const fills = [];
+        const warpLayer = document.getElementById('warp-layer');
+        const sparkleCont = document.getElementById('sparkle-container');
+
+        slides.forEach(() => {
+            const bar = document.createElement('div'); bar.className = 'bar';
+            const fill = document.createElement('div'); fill.className = 'fill';
+            bar.appendChild(fill); document.getElementById('bars').appendChild(bar); fills.push(fill);
+        });
+
+        function startExperience() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('bgMusic').play();
+            updateDisplay();
+        }
+
+        function changeSlide(dir) {
+            if (current === 1 && dir === 1) {
+                warpLayer.classList.add('warp-active');
+                setTimeout(() => warpLayer.classList.remove('warp-active'), 500);
+            }
+            current = Math.min(Math.max(current + dir, 0), slides.length - 1);
+            updateDisplay();
+
+            if (slides[current].id === 'leaderboard-slide') setTimeout(runLeaderboard, 100);
+            else resetLeaderboard();
+
+            if(slides[current].id === 'sparkle-slide') createSparkles();
+        }
+
+        function createSparkles() {
+            sparkleCont.innerHTML = '';
+            for(let i=0; i<45; i++) {
+                setTimeout(() => {
+                    const s = document.createElement('div');
+                    s.className = 'sparkle';
+                    s.style.left = Math.random() * 100 + 'vw';
+                    s.style.top = Math.random() * 100 + 'vh';
+                    const size = Math.random() * 10 + 5;
+                    s.style.width = size + 'px'; s.style.height = size + 'px';
+                    sparkleCont.appendChild(s);
+                    setTimeout(() => s.remove(), 1200);
+                }, i * 40);
+            }
+        }
+
+        function runLeaderboard() {
+            document.querySelectorAll('.race-bar').forEach(b => {
+                b.style.width = '100%';
+                b.style.top = b.getAttribute('data-final-top') + 'px';
+            });
+        }
+
+        function resetLeaderboard() {
+            document.querySelectorAll('.race-bar').forEach((b, i) => {
+                b.style.width = '0%';
+                b.style.top = (i * 50) + 'px';
+            });
+        }
+
+        function updateDisplay() {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === current);
+                if (fills[i]) fills[i].style.width = i <= current ? '100%' : '0%';
+            });
+        }
+    </script>
+</body>
+</html>
